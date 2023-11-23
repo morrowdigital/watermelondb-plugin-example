@@ -10,6 +10,6 @@ You can find more details in our blog-post:
 
 1. Clone this repo
 2. run `npm install` or `yarn install`
-3. run `npx expo start:ios` or `npx expo start:android`
+3. run `npx expo run:ios` or `npx expo run:android`
 
 > Note: In order to run you need to build a dev-client. But since this example is now using expo SDK 49, it will automatically build one with the `npx expo run:<platform>` command.
