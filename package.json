@@ -9,7 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@morrowdigital/watermelondb-expo-plugin": "^2.1.2",
+    "@morrowdigital/watermelondb-expo-plugin": "git://github.com/thejoaov/watermelondb-expo-plugin.git#fix/mac-m1-patch",
     "@nozbe/watermelondb": "^0.27.0",
     "@nozbe/with-observables": "^1.6.0",
     "expo": "~49.0.11",
