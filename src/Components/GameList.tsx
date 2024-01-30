@@ -1,4 +1,4 @@
-import withObservables from '@nozbe/with-observables';
+import {withObservables} from '@nozbe/watermelondb/react';
 import { Text, View, StyleSheet } from 'react-native';
 
 import { BoardGame } from '../model/model';

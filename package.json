@@ -9,9 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@morrowdigital/watermelondb-expo-plugin": "^2.3.0-beta2",
-    "@nozbe/watermelondb": "^0.27.0",
-    "@nozbe/with-observables": "^1.6.0",
+    "@morrowdigital/watermelondb-expo-plugin": "^2.3.1",
+    "@nozbe/watermelondb": "^0.27.1",
     "expo": "^50.0.4",
     "expo-build-properties": "~0.11.0",
     "expo-splash-screen": "~0.26.4",
