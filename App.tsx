@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 
 import { BoardGameForm } from "./src/Components/BoardGameForm";
 import { GameList } from "./src/Components/GameList";
 import { getDb } from "./src/model/database";
+import {sync} from "./src/model/sync";
 
 const gamesQuery = getDb().get('board_games').query()
 
@@ -12,6 +13,7 @@ export default function App() {
       <View style={styles.container}>
         <GameList games={gamesQuery} />
         <BoardGameForm />
+          <Button title={'SYNC'} onPress={sync}/>
         <StatusBar style='auto' />
       </View>
   );

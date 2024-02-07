@@ -7,13 +7,14 @@ import { schema } from './schema';
 
 const adapter = new SQLiteAdapter({
   schema,
+    dbName: 'boardgameapp',
   jsi: true /* Platform.OS === 'ios' */,
   onSetUpError: (error: any) => {
     console.log('error setting up database', error);
   },
 });
 
-const database = new Database({
+export const database = new Database({
   adapter,
   modelClasses: [BoardGame],
 });
