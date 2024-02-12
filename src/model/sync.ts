@@ -16,7 +16,8 @@ export async function sync() {
                 throw new Error("🍉".concat(error.message));
             }
 
-            console.log(data);
+            console.log(`🍉 Pulling with ${new Date(lastPulledAt ?? 0).toISOString()} UTC`,)
+            console.log(JSON.stringify(data));
 
             const { changes, timestamp } = data as {
                 changes: SyncDatabaseChangeSet;
@@ -31,7 +32,7 @@ export async function sync() {
             // return {changes: {}, timestamp: Date.now()};
         },
         pushChanges: async ({changes, lastPulledAt}) => {
-            console.log('pushChanges', lastPulledAt);
+            console.log('pushChanges', lastPulledAt, new Date(lastPulledAt).toISOString());
             console.log('changes', JSON.stringify(changes));
             const { error } = await supabase.rpc('push', { changes });
 
@@ -39,5 +40,10 @@ export async function sync() {
                 throw new Error("🍉".concat(error.message));
             }
         },
+        sendCreatedAsUpdated: true,
     });
+}
+
+export async function resetDb() {
+    return supabase.rpc('empty_board_games_table');
 }
