@@ -2,17 +2,15 @@ import {withObservables} from '@nozbe/watermelondb/react';
 import {Text, View, StyleSheet, Button} from 'react-native';
 
 import { BoardGame } from '../model/model';
+import {deleteBoardGame} from "../model/database";
 
 function GameListComponent({ games }: { games: BoardGame[] }) {
-  const onDelete = () => {
-
-  }
   return (
     <View>
       {games.map((game) => (
         <View key={game.title} style={styles.gameRow}>
           <View style={styles.button}>
-            <Button title='DEL' onPress={onDelete} />
+            <Button title='DEL' onPress={() => deleteBoardGame(game)} />
           </View>
           <Text>{game.title} - </Text>
           <Text>{game.minPlayers}+</Text>

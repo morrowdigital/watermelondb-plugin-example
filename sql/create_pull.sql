@@ -8,25 +8,6 @@ _ts := to_timestamp(last_pulled_at / 1000);
 --- profiles
 select jsonb_build_object(
         'created',
---                 coalesce(
---                     jsonb_agg(
---                         jsonb_build_object(
---                             'id',
---                             t.id,
---                             'title',
---                             t.title,
---                             'min_players',
---                             t.min_players,
---                             'created_at',
---                             timestamp_to_epoch(t.created_at),
---                             'updated_at',
---                             timestamp_to_epoch(t.updated_at)
---                         )
---                     ) filter (
---                         where t.created_at >= _ts
---                     ),
---                     '[]'::jsonb
---                 ),
         '[]'::jsonb,
         'updated',
         coalesce(
@@ -44,12 +25,18 @@ select jsonb_build_object(
                     timestamp_to_epoch(t.updated_at)
                 )
             ) filter (
-                where t.updated_at >= _ts
+                where t.updated_at >= _ts AND t.deleted_at is null
             ),
             '[]'::jsonb
         ),
         'deleted',
-        '[]'::jsonb
+        coalesce(
+                    jsonb_agg(to_jsonb(t.id)) filter (
+                        where t.deleted_at is not null
+                            and t.updated_at > _ts
+                    ),
+                    '[]'::jsonb
+        )
     ) into _result
 from board_games t;
 return jsonb_build_object(

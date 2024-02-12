@@ -10,6 +10,7 @@ export const schema = appSchema({
         { name: 'min_players', type: 'number' },
         { name: "created_at", type: "number" },
         { name: "updated_at", type: "number" },
+        {name: "deleted_at", type: "number", isOptional: true},
       ],
     }),
   ],

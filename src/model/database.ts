@@ -6,6 +6,7 @@ import { BoardGame } from './model';
 import { schema } from './schema';
 import {setGenerator} from "@nozbe/watermelondb/utils/common/randomId";
 import * as Crypto from "expo-crypto";
+import {get} from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const adapter = new SQLiteAdapter({
   schema,
@@ -34,5 +35,9 @@ export const createBoardGame = (title: string, minPlayers: number) =>
         boardGame.minPlayers = minPlayers;
       })
   );
+
+export const deleteBoardGame = (game: BoardGame) => {
+    return getDb().write(() => game.markAsDeleted());
+}
 
 setGenerator(() => Crypto.randomUUID());

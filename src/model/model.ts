@@ -9,6 +9,8 @@ export class BoardGame extends Model {
   // @ts-ignore
   @readonly @date('updated_at') updatedAt!: Date;
   // @ts-ignore
+  @date('deleted_at') deletedAt;
+  // @ts-ignore
   @text('title') title: string;
   // @ts-ignore
   @field('min_players') minPlayers;

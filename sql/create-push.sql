@@ -1,7 +1,6 @@
 DROP FUNCTION push(bigint);
 
-create or replace function push(changes jsonb) void as $$
-
+create or replace function push(changes jsonb) returns void as $$
 declare new_game jsonb;
 declare update_game jsonb;
 begin
@@ -16,15 +15,15 @@ select jsonb_array_elements((changes->'board_games'->'created')) loop perform cr
     );
 end loop;
 -- delete profiles
--- with changes_data as (
---     select jsonb_array_elements_text(changes->'profiles'->'deleted')::uuid as deleted
--- )
+with changes_data as (
+    select jsonb_array_elements_text(changes->'profiles'->'deleted')::uuid as deleted
+)
 -- update profiles
--- update profiles
--- set deleted_at = now(),
---     last_modified_at = now()
--- from changes_data
--- where profiles.id = changes_data.deleted;
+update board_games
+set deleted_at = now(),
+    updated_at = now()
+from changes_data
+where board_games.id = changes_data.deleted;
 end;
 
 $$ language plpgsql;
