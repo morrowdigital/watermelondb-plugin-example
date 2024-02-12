@@ -14,15 +14,16 @@
     "@supabase/supabase-js": "^2.39.3",
     "expo": "^50.0.4",
     "expo-build-properties": "~0.11.0",
+    "expo-crypto": "~12.8.0",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
-    "react-native": "0.73.2",
-    "expo-crypto": "~12.8.0"
+    "react-native": "0.73.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
+    "supabase": "^1.142.2",
     "typescript": "^5.3.0"
   },
   "private": true
