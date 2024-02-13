@@ -38,8 +38,6 @@ ios/
 android/
 .idea
 
-env.ts
-
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -47,3 +45,5 @@ env.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+.env
