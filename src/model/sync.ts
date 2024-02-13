@@ -33,7 +33,7 @@ export async function sync() {
         },
         pushChanges: async ({changes, lastPulledAt}) => {
             console.log('pushChanges', lastPulledAt, new Date(lastPulledAt).toISOString());
-            console.log('changes', JSON.stringify(changes));
+            console.log('changes', JSON.stringify(changes, null, 2));
             const { error } = await supabase.rpc('push', { changes });
 
             if (error) {
