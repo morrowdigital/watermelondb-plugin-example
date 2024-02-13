@@ -6,8 +6,9 @@ export async function sync() {
     await synchronize({
         database,
         pullChanges: async ({lastPulledAt}) => {
+            console.log(`🍉 Pulling with ${new Date(lastPulledAt ?? 0).toISOString()} UTC`, lastPulledAt);
             const { data, error } = await supabase.rpc("pull", {
-                last_pulled_at: lastPulledAt,
+                last_pulled_at: lastPulledAt ?? 0,
             });
 
             // const { data, error } = await supabase.rpc("hello_world");
@@ -16,7 +17,6 @@ export async function sync() {
                 throw new Error("🍉".concat(error.message));
             }
 
-            console.log(`🍉 Pulling with ${new Date(lastPulledAt ?? 0).toISOString()} UTC`,)
             console.log(JSON.stringify(data));
 
             const { changes, timestamp } = data as {
