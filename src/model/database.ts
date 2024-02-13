@@ -40,4 +40,10 @@ export const deleteBoardGame = (game: BoardGame) => {
     return getDb().write(() => game.markAsDeleted());
 }
 
+export const increasePlayers = (game: BoardGame) => {
+    return getDb().write(() => game.update((game) => {
+        game.minPlayers = game.minPlayers + 1;
+    }));
+}
+
 setGenerator(() => Crypto.randomUUID());

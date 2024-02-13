@@ -14,11 +14,19 @@ select jsonb_array_elements((changes->'board_games'->'created')) loop perform cr
         epoch_to_timestamp(new_game->>'updated_at')
     );
 end loop;
--- delete profiles
+-- update board_games
+for update_game in
+select jsonb_array_elements((changes->'board_games'->'updated')) loop
+    update board_games
+    set title = (update_game->>'title'),
+        min_players = (update_game->>'min_players')::integer,
+        updated_at = epoch_to_timestamp(update_game->>'updated_at')
+    where id = (update_game->>'id')::uuid;
+end loop;
+-- delete games
 with changes_data as (
     select jsonb_array_elements_text(changes->'profiles'->'deleted')::uuid as deleted
 )
--- update profiles
 update board_games
 set deleted_at = now(),
     updated_at = now()
