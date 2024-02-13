@@ -8,7 +8,8 @@ import {
   Text,
 } from 'react-native';
 
-import { createBoardGame } from '../model/database';
+
+import {createBoardGame} from "../model/helpers";
 
 export function BoardGameForm() {
   const [title, setTitle] = useState('');

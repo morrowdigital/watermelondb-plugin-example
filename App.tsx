@@ -3,8 +3,9 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 
 import { BoardGameForm } from "./src/Components/BoardGameForm";
 import { GameList } from "./src/Components/GameList";
-import { getDb } from "./src/model/database";
 import {sync} from "./src/model/sync";
+
+import {getDb} from "./src/model/helpers";
 
 const gamesQuery = getDb().get('board_games').query()
 
@@ -13,6 +14,7 @@ export default function App() {
       <View style={styles.container}>
         <GameList games={gamesQuery} />
         <BoardGameForm />
+          {/* For the demo we choose to Sync manually, for test purposes. */}
           <Button title={'SYNC'} onPress={sync}/>
         <StatusBar style='auto' />
       </View>

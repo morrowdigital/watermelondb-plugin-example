@@ -24,6 +24,8 @@ begin
       game_min_players,
       game_created_at,
       game_updated_at,
+      -- automatically handle server side tracking
+      -- so we know separately when the server created and last modified the record
       now(),
       now() + interval '1 microsecond'
     ) returning id into new_id;
