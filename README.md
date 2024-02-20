@@ -23,7 +23,7 @@ This post also include a basic demo setup of WatermelonDB.
 ## Offline-First architecture with WatermelonDB and Supabase
 
 Details on how this works can be found in our blog-post:
-> Soon to be published here: [Morrow Blog](https://www.themorrow.digital/blog)
+> Soon to be published here: [Morrow Blog / Build and Offline-First App with Expo Supabase and WatermlonDB](https://www.themorrow.digital/blog/building-an-offline-first-app-with-expo-supabase-and-watermelondb)
 
 ### Running the example
 
