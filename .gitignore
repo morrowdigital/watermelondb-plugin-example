@@ -37,3 +37,13 @@ yarn-error.*
 ios/
 android/
 .idea
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.env

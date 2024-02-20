@@ -8,6 +8,9 @@ export const schema = appSchema({
       columns: [
         { name: 'title', type: 'string', isIndexed: true },
         { name: 'min_players', type: 'number' },
+        { name: "created_at", type: "number" },   // sync field
+        { name: "updated_at", type: "number" },  // sync field
+        {name: "deleted_at", type: "number", isOptional: true}, // sync field
       ],
     }),
   ],
