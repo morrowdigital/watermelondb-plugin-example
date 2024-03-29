@@ -1,7 +1,7 @@
 {
   "name": "wmdb-plugin-example",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -14,11 +14,16 @@
     "@supabase/supabase-js": "^2.39.3",
     "expo": "^50.0.4",
     "expo-build-properties": "~0.11.0",
+    "expo-constants": "~15.4.5",
     "expo-crypto": "~12.8.0",
+    "expo-linking": "~6.2.2",
+    "expo-router": "~3.4.8",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
-    "react-native": "0.73.2"
+    "react-native": "0.73.2",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-screens": "~3.29.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -27,5 +32,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.0"
   },
-  "private": true
+  "private": true,
+  "packageManager": "yarn@4.1.1"
 }
