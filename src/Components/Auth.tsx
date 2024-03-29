@@ -1,9 +1,11 @@
 import React, {createContext, ReactNode, useContext, useState} from "react";
 import {Redirect} from "expo-router";
+import {getDb} from "../model/helpers";
 
 export type AuthContextType = {
     isAuthenticated: boolean;
-    setIsAuthenticated: (isAuthenticated: boolean) => void;
+    login: () => void;
+    logout: () => void;
 }
 
 export const Auth = createContext<AuthContextType | null>(null);
@@ -11,8 +13,18 @@ export const Auth = createContext<AuthContextType | null>(null);
 export function AuthContextProvider ({children}: {children: ReactNode}) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    const login = () => setIsAuthenticated(true);
+    const logout = () => {
+        setIsAuthenticated(false);
+
+        const db = getDb();
+        db.write(() => {
+            return db.unsafeResetDatabase();
+        });
+    };
+
     return (
-        <Auth.Provider value={{isAuthenticated, setIsAuthenticated}}>
+        <Auth.Provider value={{isAuthenticated, login, logout}}>
             {children}
         </Auth.Provider>
     );

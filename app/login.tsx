@@ -6,7 +6,7 @@ export default function Login() {
     const authContext = useContext(Auth);
 
     const onLogin = () => {
-        authContext?.setIsAuthenticated(true);
+        authContext?.login();
         router.navigate('/');
     }
 

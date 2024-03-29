@@ -11,7 +11,7 @@ const gamesQuery = getDb().get('board_games').query()
 export default function Index() {
     const authContext = useContext(Auth);
     const logout = () => {
-        authContext?.setIsAuthenticated(false);
+        authContext?.logout();
     }
   return (
         <>
