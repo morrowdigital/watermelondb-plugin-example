@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useContext, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput } from 'react-native';
 
 import { Auth } from '../src/Components/Auth';
 
@@ -14,21 +14,15 @@ export default function Login() {
   };
 
   return (
-    <View>
+    <>
       <Text>Username</Text>
       <TextInput onChangeText={setUsername} style={styles.textInput} />
       <Button title='Login' onPress={onLogin} />
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   textInput: {
     padding: 4,
     marginVertical: 8,

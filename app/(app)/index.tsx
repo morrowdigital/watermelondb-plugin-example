@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Button, StyleSheet } from 'react-native';
+import { Button, View, StyleSheet } from 'react-native';
 
 import { Auth } from '../../src/Components/Auth';
 import { BoardGameForm } from '../../src/Components/BoardGameForm';
@@ -14,22 +14,25 @@ export default function Index() {
   const logout = () => {
     authContext?.logout();
   };
+
   return (
     <>
       <GameList games={gamesQuery} />
       <BoardGameForm />
       {/* For the demo we choose to Sync manually, for test purposes. */}
-      <Button title='SYNC' onPress={sync} />
-      <Button title='Logout' onPress={logout} />
+      <View style={styles.wrapper}>
+        <Button title='SYNC' onPress={sync} />
+        <Button title='Logout' onPress={logout} />
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  wrapper: {
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+    marginTop: 10,
+    width: '100%',
   },
 });

@@ -29,6 +29,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
 
   const load = async () => {
     const db = getDb();
+    // We use WMDB's localStorage instead of AsyncStorage
     const username = await db.localStorage.get<string>('username');
     setUsername(username ?? null);
     setIsReady(true);
@@ -43,6 +44,8 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     setUsername(null);
 
     const db = getDb();
+    // Once logout is done, we reset the database to blank state
+    // to avoid leaving data on the device for the next user
     return db.write(() => {
       return db.unsafeResetDatabase();
     });
