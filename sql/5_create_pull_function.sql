@@ -1,7 +1,7 @@
 -- this function is calle by WatermelonDB when it wants to pull any changes
 -- server side. The server should check when was the 'last_pulled_at' and return
 -- the changed rows since then (created, updated, deleted);
-create or replace function pull(p_username character varying, last_pulled_at bigint default 0) returns jsonb as $$
+create or replace function pull(p_record_owner character varying, last_pulled_at bigint default 0) returns jsonb as $$
 declare _ts timestamp with time zone;
 _games jsonb;
 begin -- timestamp
@@ -35,7 +35,7 @@ select jsonb_build_object(
                 -- the row is not deleted and was modified after the last pull
                 where t.deleted_at is null
                     and t.last_modified_at > _ts
-                    and t.username = p_username
+                    and t.record_owner = p_record_owner
             ),
             '[]'::jsonb
         ),
@@ -48,7 +48,7 @@ select jsonb_build_object(
             jsonb_agg(to_jsonb(t.id)) filter (
                 where t.deleted_at is not null
                     and t.last_modified_at > _ts
-                    and t.username = p_username
+                    and t.record_owner = p_record_owner
             ),
             '[]'::jsonb
         )

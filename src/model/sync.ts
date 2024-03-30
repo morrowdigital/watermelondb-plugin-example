@@ -13,7 +13,7 @@ export async function sync() {
             const username = await getDb().localStorage.get<string>('username');
             console.log(`🍉 Pulling with lastPulledAt = ${lastPulledAt}`);
             const { data, error } = await supabase.rpc("pull", {
-                p_username: username,
+                p_record_owner: username,
                 last_pulled_at: lastPulledAt ?? 0,
             });
 
@@ -45,7 +45,7 @@ export async function sync() {
             // uncomment this for debugging purposes
             // console.log('changes', JSON.stringify(changes, null, 2));
 
-            const { error } = await supabase.rpc('push', { changes, username });
+            const { error } = await supabase.rpc('push', { changes, p_record_owner: username });
 
             if (error) {
                 throw new Error("🍉".concat(error.message));

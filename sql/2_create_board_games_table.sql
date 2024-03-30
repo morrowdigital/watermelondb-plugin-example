@@ -14,6 +14,6 @@ create table board_games (
   last_modified_at timestamp with time zone not null default now(),
 
   title character varying not null,
-  min_players integer not null default 1
-  username character varying not null,
+  min_players integer not null default 1,
+  record_owner character varying not null
 );
