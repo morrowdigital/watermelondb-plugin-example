@@ -1,7 +1,7 @@
 -- This function will receive a JSON from WatermelonDB client-side
 -- and will have to handle the creation, update and deletion of rows
 -- on the server side. Once succeeded it must return the timestamp.
-create or replace function push(changes jsonb) returns void as $$
+create or replace function push(changes jsonb, username character varying) returns void as $$
 declare new_game jsonb;
 declare updated_game jsonb;
 begin -- insert new games
@@ -10,6 +10,7 @@ select jsonb_array_elements((changes->'board_games'->'created')) loop perform cr
         (new_game->>'id')::uuid,
         (new_game->>'title'),
         (new_game->>'min_players')::integer,
+        username,
         -- also replicate the client side tracking stamps
         epoch_to_timestamp(new_game->>'created_at'),
         epoch_to_timestamp(new_game->>'updated_at')
@@ -32,6 +33,7 @@ select jsonb_array_elements((changes->'board_games'->'updated')) loop perform up
         (updated_game->>'id')::uuid,
         (updated_game->>'title'),
         (updated_game->>'min_players')::integer,
+        username,
         -- we update the client side tracking stamps
         epoch_to_timestamp(updated_game->>'updated_at')
     );

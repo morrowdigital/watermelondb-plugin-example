@@ -2,6 +2,7 @@ create or replace function create_game(
   game_id uuid,
   game_title character varying,
   game_min_players integer,
+  username character varying,
   game_created_at timestamp with time zone,
   game_updated_at timestamp with time zone
 ) returns uuid as $$
@@ -12,6 +13,7 @@ begin
     id,
     title,
     min_players,
+    username,
     created_at,
     updated_at,
     server_created_at,
@@ -22,6 +24,7 @@ begin
       game_id,
       game_title,
       game_min_players,
+      username,
       game_created_at,
       game_updated_at,
       -- automatically handle server side tracking

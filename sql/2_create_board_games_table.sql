@@ -15,4 +15,5 @@ create table board_games (
 
   title character varying not null,
   min_players integer not null default 1
+  username character varying not null,
 );

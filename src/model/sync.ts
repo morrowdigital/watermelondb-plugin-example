@@ -1,6 +1,7 @@
 import {SyncDatabaseChangeSet, synchronize} from "@nozbe/watermelondb/sync";
 import {database} from "./database";
 import {supabase} from "../supabase/supabase-client";
+import {getDb} from "./helpers";
 
 export async function sync() {
     await synchronize({
@@ -9,8 +10,10 @@ export async function sync() {
         // that will provide the changes that happened on the server since lastPulledAt
         // Results should be in format SyncDatabaseChangeSet
         pullChanges: async ({lastPulledAt}) => {
+            const username = await getDb().localStorage.get<string>('username');
             console.log(`🍉 Pulling with lastPulledAt = ${lastPulledAt}`);
             const { data, error } = await supabase.rpc("pull", {
+                p_username: username,
                 last_pulled_at: lastPulledAt ?? 0,
             });
 
@@ -34,12 +37,15 @@ export async function sync() {
         // which receives and handles client-side changes from WatermelonDB.
         // the object sent is in format SyncDatabaseChangeSet
         pushChanges: async ({changes, lastPulledAt}) => {
+            const username = await getDb().localStorage.get<string>('username');
             console.log(`🍉 Pushing with lastPulledAt = ${lastPulledAt}`);
+
+            // const updatedChanges = addUserNameToCreated(changes, username ?? '');
 
             // uncomment this for debugging purposes
             // console.log('changes', JSON.stringify(changes, null, 2));
 
-            const { error } = await supabase.rpc('push', { changes });
+            const { error } = await supabase.rpc('push', { changes, username });
 
             if (error) {
                 throw new Error("🍉".concat(error.message));
@@ -52,4 +58,21 @@ export async function sync() {
         // So WatermelonDB will treat them as accordingly.
         sendCreatedAsUpdated: true,
     });
+}
+
+const usernameAdder = (username: string) => (record: Record<string, unknown>) => ({
+    ...record,
+    username,
+})
+
+const addUserNameToCreated = (changes: SyncDatabaseChangeSet, username: string) => {
+    const propAdder = usernameAdder(username);
+
+    return {
+        ...changes,
+        "board_games": {
+            ...changes.board_games,
+            created: changes.board_games.created.map(propAdder)
+        }
+    }
 }
