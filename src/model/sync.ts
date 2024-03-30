@@ -5,14 +5,22 @@ import { getDb } from './helpers';
 import { supabase } from '../supabase/supabase-client';
 
 export async function sync() {
+  const username = await getDb().localStorage.get<string>('username');
+  if (!username) {
+    return console.log(`🍉 No user found. Skipping sync.`);
+  }
+
   await synchronize({
     database,
     // with pull changes we should provide the logic to call the remote server pull function
     // that will provide the changes that happened on the server since lastPulledAt
     // Results should be in format SyncDatabaseChangeSet
     pullChanges: async ({ lastPulledAt }) => {
-      const username = await getDb().localStorage.get<string>('username');
-      console.log(`🍉 Pulling with lastPulledAt = ${lastPulledAt}`);
+      console.log(
+        `🍉 Pulling with lastPulledAt = ${lastPulledAt}`,
+        'for user',
+        username,
+      );
       const { data, error } = await supabase.rpc('pull', {
         p_record_owner: username,
         last_pulled_at: lastPulledAt ?? 0,
@@ -38,10 +46,8 @@ export async function sync() {
     // which receives and handles client-side changes from WatermelonDB.
     // the object sent is in format SyncDatabaseChangeSet
     pushChanges: async ({ changes, lastPulledAt }) => {
-      const username = await getDb().localStorage.get<string>('username');
       console.log(`🍉 Pushing with lastPulledAt = ${lastPulledAt}`);
-
-      // const updatedChanges = addUserNameToCreated(changes, username ?? '');
+      console.log('push', JSON.stringify(changes, null, 2));
 
       // uncomment this for debugging purposes
       // console.log('changes', JSON.stringify(changes, null, 2));
