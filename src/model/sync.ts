@@ -68,24 +68,3 @@ export async function sync() {
     sendCreatedAsUpdated: true,
   });
 }
-
-const usernameAdder =
-  (username: string) => (record: Record<string, unknown>) => ({
-    ...record,
-    username,
-  });
-
-const addUserNameToCreated = (
-  changes: SyncDatabaseChangeSet,
-  username: string,
-) => {
-  const propAdder = usernameAdder(username);
-
-  return {
-    ...changes,
-    board_games: {
-      ...changes.board_games,
-      created: changes.board_games.created.map(propAdder),
-    },
-  };
-};
