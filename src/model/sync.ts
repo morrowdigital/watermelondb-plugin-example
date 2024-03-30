@@ -47,7 +47,6 @@ export async function sync() {
     // the object sent is in format SyncDatabaseChangeSet
     pushChanges: async ({ changes, lastPulledAt }) => {
       console.log(`🍉 Pushing with lastPulledAt = ${lastPulledAt}`);
-      console.log('push', JSON.stringify(changes, null, 2));
 
       // uncomment this for debugging purposes
       // console.log('changes', JSON.stringify(changes, null, 2));
