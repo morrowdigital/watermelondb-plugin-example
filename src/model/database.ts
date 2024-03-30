@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
-import {Database} from '@nozbe/watermelondb';
+import { Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
+import { setGenerator } from '@nozbe/watermelondb/utils/common/randomId';
+import * as Crypto from 'expo-crypto';
 
-import {BoardGame} from './model';
-import {schema} from './schema';
-import {setGenerator} from "@nozbe/watermelondb/utils/common/randomId";
-import * as Crypto from "expo-crypto";
+import { BoardGame } from './model';
+import { schema } from './schema';
 
 const adapter = new SQLiteAdapter({
   schema,
-    dbName: 'boardgameapp',
+  dbName: 'boardgameapp',
   jsi: true /* Platform.OS === 'ios' */,
   onSetUpError: (error: any) => {
     console.log('error setting up database', error);

@@ -1,24 +1,24 @@
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import {useContext, useState} from "react";
-import {Auth} from "../src/Components/Auth";
-import {router} from "expo-router";
+import { router } from 'expo-router';
+import { useContext, useState } from 'react';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+
+import { Auth } from '../src/Components/Auth';
+
 export default function Login() {
-    const authContext = useContext(Auth);
-    const [username, setUsername] = useState('');
+  const authContext = useContext(Auth);
+  const [username, setUsername] = useState('');
 
-    const onLogin = () => {
-        authContext?.login(username);
-        console.log('will login with', username)
-        router.navigate('/');
-    }
-
+  const onLogin = () => {
+    authContext?.login(username);
+    router.navigate('/');
+  };
 
   return (
-      <View>
-        <Text>Username</Text>
-          <TextInput  onChangeText={setUsername} style={styles.textInput}/>
-          <Button title='Login' onPress={onLogin}/>
-      </View>
+    <View>
+      <Text>Username</Text>
+      <TextInput onChangeText={setUsername} style={styles.textInput} />
+      <Button title='Login' onPress={onLogin} />
+    </View>
   );
 }
 
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-    textInput: {
-      padding: 4,
-        marginVertical: 8,
-        borderWidth: 1,
-        borderColor: 'lightgray',
-        minWidth: 200,
-    }
+  textInput: {
+    padding: 4,
+    marginVertical: 8,
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    minWidth: 200,
+  },
 });

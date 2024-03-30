@@ -8,8 +8,7 @@ import {
   Text,
 } from 'react-native';
 
-
-import {createBoardGame} from "../model/helpers";
+import { createBoardGame } from '../model/helpers';
 
 export function BoardGameForm() {
   const [title, setTitle] = useState('');
@@ -60,6 +59,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   container: {
-    marginBottom: 8
+    marginBottom: 8,
   },
 });

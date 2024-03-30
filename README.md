@@ -1,6 +1,7 @@
 # Using WatermelonDb-expo-plugin + Offline-First examples
 
 This is an example Expo app that demonstrates the following cases:
+
 1. How to use the [@morrowdigital/watermelondb-expo-plugin](https://github.com/morrowdigital/watermelondb-expo-plugin)
 2. A basic setup of WatermelonDB
 3. How to use Offline-First architecture with WatermelonDB and Supabase
@@ -32,4 +33,4 @@ Follow the instruction in the blog post above, and create a Supabase project, al
 
 In the root directory create a `.env` file and add the Supabase project URL and the Supabase Anon Key. (see `.env.example`)
 
-Run with dev client or  `npx expo run:ios` / `npx expo run:android` commands.
+Run with dev client or `npx expo run:ios` / `npx expo run:android` commands.

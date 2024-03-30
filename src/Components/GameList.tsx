@@ -1,14 +1,14 @@
-import {withObservables} from '@nozbe/watermelondb/react';
-import { View} from 'react-native';
+import { withObservables } from '@nozbe/watermelondb/react';
+import { View } from 'react-native';
 
-import {BoardGame} from '../model/model';
-import {GameListItem} from "./GameListItem";
+import { GameListItem } from './GameListItem';
+import { BoardGame } from '../model/model';
 
 function GameListComponent({ games }: { games: BoardGame[] }) {
   return (
     <View>
       {games.map((game) => (
-          <GameListItem key={game.title} game={game}/>
+        <GameListItem key={game.title} game={game} />
       ))}
     </View>
   );
