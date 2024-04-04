@@ -1,11 +1,11 @@
-import {Model} from "@nozbe/watermelondb";
-import {date, field, readonly, text} from "@nozbe/watermelondb/decorators";
+import { Model } from '@nozbe/watermelondb';
+import { date, field, readonly, text } from '@nozbe/watermelondb/decorators';
 
 export class BoardGame extends Model {
   static table = 'board_games';
 
   // We add createdAt and updatedAt fields to the model
-    // and they will be automatically managed by WatermelonDB
+  // and they will be automatically managed by WatermelonDB
   // @ts-ignore
   @readonly @date('created_at') createdAt!: Date;
   // @ts-ignore
@@ -18,4 +18,3 @@ export class BoardGame extends Model {
   // @ts-ignore
   @field('min_players') minPlayers;
 }
-

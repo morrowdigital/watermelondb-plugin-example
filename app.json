@@ -2,6 +2,7 @@
   "expo": {
     "name": "wmdb-plugin-example",
     "slug": "wmdb-plugin-example",
+    "scheme": "mwdbpluginexample",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "digital.themorrow.wmdb-plugin-example"
@@ -36,13 +35,12 @@
           "android": {
             "kotlinVersion": "1.6.10",
             "packagingOptions": {
-              "pickFirst": [
-                "**/libc++_shared.so"
-              ]
+              "pickFirst": ["**/libc++_shared.so"]
             }
           }
         }
-      ]
+      ],
+      "expo-router"
     ]
   }
 }

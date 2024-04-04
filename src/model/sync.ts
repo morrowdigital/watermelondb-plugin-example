@@ -1,55 +1,70 @@
-import {SyncDatabaseChangeSet, synchronize} from "@nozbe/watermelondb/sync";
-import {database} from "./database";
-import {supabase} from "../supabase/supabase-client";
+import { SyncDatabaseChangeSet, synchronize } from '@nozbe/watermelondb/sync';
+
+import { database } from './database';
+import { getDb } from './helpers';
+import { supabase } from '../supabase/supabase-client';
 
 export async function sync() {
-    await synchronize({
-        database,
-        // with pull changes we should provide the logic to call the remote server pull function
-        // that will provide the changes that happened on the server since lastPulledAt
-        // Results should be in format SyncDatabaseChangeSet
-        pullChanges: async ({lastPulledAt}) => {
-            console.log(`🍉 Pulling with lastPulledAt = ${lastPulledAt}`);
-            const { data, error } = await supabase.rpc("pull", {
-                last_pulled_at: lastPulledAt ?? 0,
-            });
+  const username = await getDb().localStorage.get<string>('username');
+  if (!username) {
+    return console.log(`🍉 No user found. Skipping sync.`);
+  }
 
-            if (error) {
-                throw new Error("🍉".concat(error.message));
-            }
+  await synchronize({
+    database,
+    // with pull changes we should provide the logic to call the remote server pull function
+    // that will provide the changes that happened on the server since lastPulledAt
+    // Results should be in format SyncDatabaseChangeSet
+    pullChanges: async ({ lastPulledAt }) => {
+      console.log(
+        `🍉 Pulling with lastPulledAt = ${lastPulledAt}`,
+        'for user',
+        username,
+      );
+      const { data, error } = await supabase.rpc('pull', {
+        p_record_owner: username,
+        last_pulled_at: lastPulledAt ?? 0,
+      });
 
-            // uncomment this for debugging purposes
-            // console.log(JSON.stringify(data, null, 2));
+      if (error) {
+        throw new Error('🍉'.concat(error.message));
+      }
 
-            const { changes, timestamp } = data as {
-                changes: SyncDatabaseChangeSet;
-                timestamp: number;
-            };
+      // uncomment this for debugging purposes
+      // console.log(JSON.stringify(data, null, 2));
 
-            console.log(`🍉 Changes pulled successfully. Timestamp: ${timestamp}`);
+      const { changes, timestamp } = data as {
+        changes: SyncDatabaseChangeSet;
+        timestamp: number;
+      };
 
-            return {changes, timestamp};
-        },
-        // with push changes we should provide the logic to call the remote server push function
-        // which receives and handles client-side changes from WatermelonDB.
-        // the object sent is in format SyncDatabaseChangeSet
-        pushChanges: async ({changes, lastPulledAt}) => {
-            console.log(`🍉 Pushing with lastPulledAt = ${lastPulledAt}`);
+      console.log(`🍉 Changes pulled successfully. Timestamp: ${timestamp}`);
 
-            // uncomment this for debugging purposes
-            // console.log('changes', JSON.stringify(changes, null, 2));
+      return { changes, timestamp };
+    },
+    // with push changes we should provide the logic to call the remote server push function
+    // which receives and handles client-side changes from WatermelonDB.
+    // the object sent is in format SyncDatabaseChangeSet
+    pushChanges: async ({ changes, lastPulledAt }) => {
+      console.log(`🍉 Pushing with lastPulledAt = ${lastPulledAt}`);
 
-            const { error } = await supabase.rpc('push', { changes });
+      // uncomment this for debugging purposes
+      // console.log('changes', JSON.stringify(changes, null, 2));
 
-            if (error) {
-                throw new Error("🍉".concat(error.message));
-            }
+      const { error } = await supabase.rpc('push', {
+        changes,
+        p_record_owner: username,
+      });
 
-            console.log(`🍉 Changes pushed successfully.`);
-        },
-        // With this setting we expect from server that new rows
-        // will return in 'updated' key along with updates.
-        // So WatermelonDB will treat them as accordingly.
-        sendCreatedAsUpdated: true,
-    });
+      if (error) {
+        throw new Error('🍉'.concat(error.message));
+      }
+
+      console.log(`🍉 Changes pushed successfully.`);
+    },
+    // With this setting we expect from server that new rows
+    // will return in 'updated' key along with updates.
+    // So WatermelonDB will treat them as accordingly.
+    sendCreatedAsUpdated: true,
+  });
 }
