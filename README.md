@@ -4,7 +4,8 @@ This is an example Expo app that demonstrates the following cases:
 
 1. How to use the [@morrowdigital/watermelondb-expo-plugin](https://github.com/morrowdigital/watermelondb-expo-plugin)
 2. A basic setup of WatermelonDB
-3. How to use Offline-First architecture with WatermelonDB and Supabase
+3. [Morrow Blog / Build and Offline-First App with Expo Supabase and WatermlonDB](https://www.themorrow.digital/blog/building-an-offline-first-app-with-expo-supabase-and-watermelondb)
+4. [Offline First with Supabase and WatermelonDB - Part 2 - Handling authentication](https://www.themorrow.digital/blog/building-an-offline-first-app-with-expo-supabase-and-watermelondb-authentication)
 
 ## Using the [@morrowdigital/watermelondb-expo-plugin](https://github.com/morrowdigital/watermelondb-expo-plugin)
 
@@ -20,12 +21,6 @@ This post also include a basic demo setup of WatermelonDB.
 3. run `npx expo run:ios` or `npx expo run:android`
 
 > Note: In order to run you need to build a dev-client. But since this example is now using expo SDK 50, it will automatically build one with the `npx expo run:<platform>` command. If you still encounter issues, then build a dev-client.
-
-## Offline-First architecture with WatermelonDB and Supabase
-
-Details on how this works can be found in our blog-post:
-
-[Morrow Blog / Build and Offline-First App with Expo Supabase and WatermlonDB](https://www.themorrow.digital/blog/building-an-offline-first-app-with-expo-supabase-and-watermelondb)
 
 ### Running the example
 
